@@ -19,6 +19,8 @@ import {
   CHANGE_USERNAME,
   CHANGE_PASSWORD,
   SIGN_IN,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_ERROR,
 } from './constants';
 
 /**
@@ -57,6 +59,31 @@ export function changePassword(password) {
 export function signIn() {
   return {
     type: SIGN_IN,    
+  };
+}
+
+/**
+ * Successful sign in
+ *
+ * @param  {user} user that signed in
+ *
+ * @return {object}    An action object with a type of SIGN_IN_SUCCESS
+ */
+export function signInSuccess(user) {
+  return {
+    type: SIGN_IN_SUCCESS,
+    user: user,   
+  };
+}
+
+/**
+ * Error during sign in
+ *
+ * @return {object}    An action object with a type of SIGN_IN_ERROR
+ */
+export function signInError() {
+  return {
+    type: SIGN_IN_ERROR,    
   };
 }
 

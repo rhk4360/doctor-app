@@ -28,7 +28,12 @@ routes(app); //register the route
 
 // mongoose instance connection url connection
 mongoose.connect('mongodb://admin:password@localhost/admin');
-
+//const db = mongoose.mongo.MongoClient('mongodb://'+username+':'+passwor‌​d+'@localhost/dbtoco‌​nnect, function(err, db){});
+// db.createUser({
+//      user: "admin",
+//      pwd: "password",
+//      roles: [ "readWrite", "dbAdmin" ]
+//  });
 seed();
 
 // In production we need to pass these values in instead of relying on webpack

@@ -14,7 +14,8 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+import Button from 'components/Button';
 import H2 from 'components/H2';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
@@ -28,14 +29,6 @@ import reducer from './reducer';
 import saga from './saga';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  /**
-   * when initial state username is not null, submit the form to load repos
-   */
-  componentDidMount() {
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
-  }
 
   render() {
     const { loading, error, repos } = this.props;
@@ -48,19 +41,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     return (
       <article>
         <Helmet>
-          <title>Home Page</title>
-          <meta name="description" content="A React.js Boilerplate application homepage" />
+          <title>Medical Portal Page</title>
+          <meta name="description" content="A Medical Portal" />
         </Helmet>
         <div>
           <CenteredSection>
             <H2>
-              <FormattedMessage {...messages.startProjectHeader} />
+              <FormattedMessage {...messages.signInHeader} />
             </H2>
           </CenteredSection>
           <Section>
-            <H2>
-              <FormattedMessage {...messages.trymeHeader} />
-            </H2>
             <Form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
                 <FormattedMessage {...messages.usernameLabel} />                
@@ -76,11 +66,13 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
                 <Input
                   id="password"
                   type="password"                 
-                  placeholder="test1234" 
-                  value="test1234"                  
+                  placeholder="test1234"                  
                   onChange={this.props.onChangePassword}
                 />
               </label>
+              <Button type="submit" onClick={this.props.onSubmitForm} primary >
+                <FormattedMessage {...messages.signInButton} />
+              </Button>
             </Form>            
           </Section>
         </div>
@@ -111,13 +103,12 @@ export function mapDispatchToProps(dispatch) {
     onChangePassword: (evt) => dispatch(changePassword(evt.target.value)),
     onSubmitForm: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadRepos());
+      dispatch(signIn());
     },
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
   username: makeSelectUsername(),
   password: makeSelectPassword(),
   loading: makeSelectLoading(),

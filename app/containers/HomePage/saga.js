@@ -1,10 +1,10 @@
 /**
  * Gets the repositories of the user from Github
  */
-
+import { push } from 'react-router-redux';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { SIGN_IN } from './constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import { signInSuccess, signInError } from './actions';
 
 import request from 'utils/request';
 import { makeSelectUsername, makeSelectPassword } from './selectors';
@@ -20,23 +20,30 @@ export function* signIn() {
 
   try {
     // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL, {
+    const user = yield call(request, requestURL, {
       method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        //'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
       body: JSON.stringify({
         username: username,
         password: password,
-      })
+      }),
     });
-    yield put(reposLoaded(repos, username));
+    yield put(signInSuccess(user));
+    // redirect to next page
+    yield put(push('/list'));
   } catch (err) {
-    yield put(repoLoadingError(err));
+    yield put(signInError(err));
   }
 }
 
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* githubData() {
+export default function* signInData() {
   // Watches for SIGN_IN actions and calls signIn when one comes in.
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution

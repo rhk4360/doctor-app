@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  startProjectHeader: {
-    id: 'boilerplate.containers.HomePage.start_project.header',
+  signInHeader: {
+    id: 'boilerplate.containers.HomePage.signIn.header',
     defaultMessage: 'Sign in to view medical care history',
   },
   usernameLabel: {
@@ -18,8 +18,8 @@ export default defineMessages({
     id: 'boilerplate.containers.HomePage.password.label',
     defaultMessage: 'Password',
   },
-  trymeAtPrefix: {
-    id: 'boilerplate.containers.HomePage.tryme.atPrefix',
-    defaultMessage: '@',
+  signInButton: {
+    id: 'boilerplate.containers.HomePage.signIn.button',
+    defaultMessage: 'Sign In',
   },
 });
