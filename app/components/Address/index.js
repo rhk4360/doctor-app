@@ -3,26 +3,21 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import H2 from 'components/H2';
-import Address from 'components/Address';
 
 class PatientOverview extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
 
     const { user } =  this.props;
 
-    if (user) {
+    if (user.address) {
       return (
-        <div>
-          <H2>
-            <FormattedMessage {...messages.mainHeader} />
-          </H2>
-          <ul>
-            <li>{ user.name.full }</li>
-            <li>{ user.age }</li>
-            <li>{ user.email }</li>
-            <li><Address /></li>
-          </ul>
-        </div>
+        <address>
+          <span>{user.address.line_1}</span>
+          <span>{user.address.line_2}</span>
+          <span>{user.address.city}</span>
+          <span>{user.address.state}</span>
+          <span>{user.address.postal_code}</span>
+        </address>
       );
     } else {
       return false;

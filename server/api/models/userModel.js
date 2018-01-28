@@ -1,7 +1,7 @@
 'use strict';
+var moment = require('moment');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
 
 var UserSchema = new Schema({
   // Ideally these are separate from the user
@@ -34,20 +34,26 @@ var UserSchema = new Schema({
     required: true,
     trim: true
   },
-  // Ideally we have an address table and just have a FK here
-  address_line_1: String,
-  address_line_2: String,
-  city: String,
-  state: String,
-  postal_code: String,
+  address: { type: Schema.Types.ObjectId, ref: 'Address' },
+  appointments: { type: Schema.Types.ObjectId, ref: 'Appointment' },
+}, 
+{
+  toObject: {
+    virtuals: true,
+  },
+  toJSON: {
+    virtuals: true,
+  },
 });
 
-UserSchema.virtual('full_name').get(function() {  
-    return this.name.first + ' ' + this.name.last;
+UserSchema.virtual('name.full').get(function() {  
+  return this.name.first + ' ' + this.name.last;
 });
 
 UserSchema.virtual('age').get(function() {  
-    return 21;
+  if (this.dob) {
+    return moment().diff(this.dob, 'years');
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);

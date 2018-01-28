@@ -19,16 +19,16 @@ exports.signIn = (function(req, res) {
     User.findOne({
       username: req.body.username, 
       password: req.body.password,
-    }, function(error, user) {     
+    })
+    .populate('address')
+    .exec(function(error, user) {     
       if (error) {
+        console.log('Error: ' + JSON.stringify(error));
         res.send(error);
       } else {  
-        console.log(JSON.stringify(user));
-        // calculate age so everyone gets it for free
-        if (user.dob) {
-          user.age = moment().diff(user.dob, 'years');
-        }
+        console.log('User Response: ' + JSON.stringify(user));
+
         res.send(user);
       }
-    })
+    });
 });
