@@ -17,6 +17,8 @@
 
 import {
   CHANGE_USERNAME,
+  CHANGE_PASSWORD,
+  SIGN_IN,
 } from './constants';
 
 /**
@@ -32,3 +34,29 @@ export function changeUsername(name) {
     name,
   };
 }
+
+/**
+ * Changes the input field of the form
+ *
+ * @param  {password} password The new text of the input field
+ *
+ * @return {object}    An action object with a type of CHANGE_PASSWORD
+ */
+export function changePassword(password) {
+  return {
+    type: CHANGE_PASSWORD,
+    password,
+  };
+}
+
+/**
+ * Attempts to sign the user in
+ *
+ * @return {object}    An action object with a type of SIGN_IN
+ */
+export function signIn() {
+  return {
+    type: SIGN_IN,    
+  };
+}
+

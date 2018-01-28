@@ -16,16 +16,14 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import H2 from 'components/H2';
-import ReposList from 'components/ReposList';
-import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
 import Input from './Input';
 import Section from './Section';
 import messages from './messages';
 import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
+import { changeUsername, changePassword, signIn } from './actions';
+import { makeSelectUsername, makeSelectPassword } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -58,9 +56,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             <H2>
               <FormattedMessage {...messages.startProjectHeader} />
             </H2>
-            <p>
-              <FormattedMessage {...messages.startProjectMessage} />
-            </p>
           </CenteredSection>
           <Section>
             <H2>
@@ -68,20 +63,25 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             </H2>
             <Form onSubmit={this.props.onSubmitForm}>
               <label htmlFor="username">
-                <FormattedMessage {...messages.trymeMessage} />
-                <AtPrefix>
-                  <FormattedMessage {...messages.trymeAtPrefix} />
-                </AtPrefix>
+                <FormattedMessage {...messages.usernameLabel} />                
                 <Input
                   id="username"
                   type="text"
-                  placeholder="mxstbr"
-                  value={this.props.username}
+                  placeholder="patient1 or doctor1"                  
                   onChange={this.props.onChangeUsername}
                 />
               </label>
-            </Form>
-            <ReposList {...reposListProps} />
+              <label htmlFor="password">
+                <FormattedMessage {...messages.passwordLabel} />                
+                <Input
+                  id="password"
+                  type="password"                 
+                  placeholder="test1234" 
+                  value="test1234"                  
+                  onChange={this.props.onChangePassword}
+                />
+              </label>
+            </Form>            
           </Section>
         </div>
       </article>
@@ -102,11 +102,13 @@ HomePage.propTypes = {
   onSubmitForm: PropTypes.func,
   username: PropTypes.string,
   onChangeUsername: PropTypes.func,
+  onChangePassword: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
+    onChangePassword: (evt) => dispatch(changePassword(evt.target.value)),
     onSubmitForm: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
@@ -117,6 +119,7 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   repos: makeSelectRepos(),
   username: makeSelectUsername(),
+  password: makeSelectPassword(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
 });
