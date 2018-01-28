@@ -19,8 +19,10 @@ var UserSchema = new Schema({
     type: String,
     required: true,
   },
-  first_name: String,
-  last_name: String,
+  name: {
+    first: String,
+    last: String,
+  },
   created_date: {
     type: Date,
     default: Date.now
@@ -38,6 +40,14 @@ var UserSchema = new Schema({
   city: String,
   state: String,
   postal_code: String,
+});
+
+UserSchema.virtual('full_name').get(function() {  
+    return this.name.first + ' ' + this.name.last;
+});
+
+UserSchema.virtual('age').get(function() {  
+    return 21;
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -8,8 +8,10 @@ exports.seed = function() {
 	 	password: 'test1234',
 	 	passwordConfirmation: 'test1234',			 	
 	 	email: 'test@testuser.com',
-	 	first_name: 'Andrew',
-	 	last_name: 'Garret',
+	 	name: {
+	 		first: 'Andrew',
+	 		last: 'Garret',
+	 	},	 	
 	 	dob: new Date('12/16/1985'),
 	 	address_line_1: '7185 Leeside View',
 	 	city: 'Colorado Springs',

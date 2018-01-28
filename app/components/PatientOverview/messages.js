@@ -6,9 +6,9 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  home: {
-    id: 'boilerplate.components.Header.home',
-    defaultMessage: 'Home',
+  mainHeader: {
+    id: 'boilerplate.components.PatientOverview.mainHeader',
+    defaultMessage: 'Overview',
   },
   features: {
     id: 'boilerplate.components.Header.features',
