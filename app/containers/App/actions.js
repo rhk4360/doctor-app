@@ -16,9 +16,9 @@
  */
 
 import {
-  LOAD_REPOS,
-  LOAD_REPOS_SUCCESS,
-  LOAD_REPOS_ERROR,
+  SIGN_IN,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_ERROR,
 } from './constants';
 
 /**
@@ -26,38 +26,36 @@ import {
  *
  * @return {object} An action object with a type of LOAD_REPOS
  */
-export function loadRepos() {
+export function signIn() {
   return {
-    type: LOAD_REPOS,
+    type: SIGN_IN,
   };
 }
 
 /**
- * Dispatched when the repositories are loaded by the request saga
+ * Dispatched when signing in is successful
  *
- * @param  {array} repos The repository data
- * @param  {string} username The current username
+ * @param  {object} user The current user
  *
- * @return {object}      An action object with a type of LOAD_REPOS_SUCCESS passing the repos
+ * @return {object}      An action object with a type of SIGN_IN_SUCCESS passing the repos
  */
-export function reposLoaded(repos, username) {
+export function signInSuccess(user) {
   return {
-    type: LOAD_REPOS_SUCCESS,
-    repos,
-    username,
+    type: SIGN_IN_SUCCESS,
+    user,    
   };
 }
 
 /**
- * Dispatched when loading the repositories fails
+ * Dispatched when signing in fails
  *
  * @param  {object} error The error
  *
- * @return {object}       An action object with a type of LOAD_REPOS_ERROR passing the error
+ * @return {object}       An action object with a type of SIGN_IN_ERROR passing the error
  */
 export function repoLoadingError(error) {
   return {
-    type: LOAD_REPOS_ERROR,
+    type: SIGN_IN_ERROR,
     error,
   };
 }

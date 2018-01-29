@@ -3,20 +3,21 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import H2 from 'components/H2';
+import { makeSelectCurrentUser } from 'containers/App/selectors';
 
-class PatientOverview extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export default class Address extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
 
-    const { user } =  this.props;
-
-    if (user.address) {
+    const { patient } =  this.props;
+    console.log("address props: " + JSON.stringify(this.props));
+    if (patient && patient.address) {
       return (
         <address>
-          <span>{user.address.line_1}</span>
-          <span>{user.address.line_2}</span>
-          <span>{user.address.city}</span>
-          <span>{user.address.state}</span>
-          <span>{user.address.postal_code}</span>
+          <span>{patient.address.line_1}</span>
+          <span>{patient.address.line_2}</span>
+          <span>{patient.address.city}</span>
+          <span>{patient.address.state}</span>
+          <span>{patient.address.postal_code}</span>
         </address>
       );
     } else {
@@ -25,14 +26,7 @@ class PatientOverview extends React.Component { // eslint-disable-line react/pre
   }
 }
 
-PatientOverview.propTypes = {
-  user: React.PropTypes.object,
+Address.propTypes = {
+  patient: React.PropTypes.object,
 };
 
-const mapStateToProps = (state) => { 
-  console.log(JSON.stringify(state.get('home')));
-  return { user: state.get('home').get('user') };
-};
-
-// Wrap the component to inject dispatch and state into it
-export default connect(mapStateToProps)(PatientOverview);

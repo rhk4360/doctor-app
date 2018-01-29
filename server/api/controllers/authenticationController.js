@@ -5,13 +5,6 @@
 var moment = require('moment');
 var User = require('../models/userModel');
 
-exports.createUser = function(req, res) {
-    new User({
-      title: req.body.title, 
-      author: req.body.author
-    }).save();
-}
-
 // signs in a user (super basic "auth")
 exports.signIn = (function(req, res) {
     console.log('signIn called with request: ' + JSON.stringify(req.body));
@@ -21,6 +14,7 @@ exports.signIn = (function(req, res) {
       password: req.body.password,
     })
     .populate('address')
+    .populate('appointments')
     .exec(function(error, user) {     
       if (error) {
         console.log('Error: ' + JSON.stringify(error));

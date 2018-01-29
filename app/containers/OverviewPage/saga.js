@@ -7,7 +7,7 @@ import { SIGN_IN } from './constants';
 import { signInSuccess, signInError } from 'containers/App/actions';
 
 import request from 'utils/request';
-import { makeSelectUsername, makeSelectPassword } from './selectors';
+import { makeSelectUsername, makeSelectPassword } from 'containers/App/selectors';
 
 /**
  * Github repos request/response handler

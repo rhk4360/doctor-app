@@ -11,6 +11,11 @@ var UserSchema = new Schema({
     required: true,
     trim: true
   },
+  type: {
+    type: String,
+    enum: ['Provider', 'Patient'],
+    required: true,
+  },
   password: {
     type: String,
     required: true,
@@ -34,8 +39,14 @@ var UserSchema = new Schema({
     required: true,
     trim: true
   },
-  address: { type: Schema.Types.ObjectId, ref: 'Address' },
-  appointments: { type: Schema.Types.ObjectId, ref: 'Appointment' },
+  address: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'Address',
+  },
+  appointments: [{
+    type: Schema.Types.ObjectId, 
+    ref: 'Appointment'
+  }],
 }, 
 {
   toObject: {

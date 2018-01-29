@@ -1,16 +1,15 @@
 {
-  "name": "react-boilerplate",
+  "name": "medical-portal",
   "version": "3.5.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
   "repository": {
     "type": "git",
-    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
+    "url": "git://github.com/rhk4360/doctor-app.git"
   },
   "engines": {
     "npm": ">=3",
     "node": ">=5"
   },
-  "author": "Max Stoiber",
+  "author": "rhk4360 using Max Stoiber's react-boilerplate",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",

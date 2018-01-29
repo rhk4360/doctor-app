@@ -8,10 +8,14 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   mainHeader: {
     id: 'boilerplate.components.PatientOverview.mainHeader',
-    defaultMessage: 'Overview',
+    defaultMessage: 'Patient Overview',
   },
-  features: {
-    id: 'boilerplate.components.Header.features',
-    defaultMessage: 'Features',
+  addressHeader: {
+    id: 'boilerplate.components.PatientOverview.addressHeader',
+    defaultMessage: 'Patient Details',
+  },
+  appointmentHeader: {
+    id: 'boilerplate.components.PatientOverview.appointmentHeader',
+    defaultMessage: 'Appointments',
   },
 });

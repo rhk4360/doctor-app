@@ -2,21 +2,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var AppointmentSchema = new Schema({
-  // Ideally these are separate from the user
-  date: {
+var AppointmentSchema = new Schema({  
+  datetime: {
     type: Date,
     required: true,
   },
-  time: {
-    hour: {
-      type: Number,
-      required: true,
-    },
-    minute {
-      type: Number,
-      required: true,
-    },
+  // Mongo stores in UTC by default
+  timeoffset: {
+    type: Number,
+    required: true,
   },
   purpose: {
     type: String,
@@ -29,7 +23,7 @@ var AppointmentSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['Booked', 'Requested', 'Canceled'],
+    enum: ['Booked', 'Requested', 'Canceled', 'Completed'],
     required: true,
   }
 });
