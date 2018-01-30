@@ -25,8 +25,9 @@ var UserSchema = new Schema({
     required: true,
   },
   name: {
-    first: String,
-    last: String,
+    first: { type: String, required: true, },
+    last: { type: String, required: true, },
+    suffix: String,
   },
   created_date: {
     type: Date,
@@ -43,10 +44,6 @@ var UserSchema = new Schema({
     type: Schema.Types.ObjectId, 
     ref: 'Address',
   },
-  appointments: [{
-    type: Schema.Types.ObjectId, 
-    ref: 'Appointment'
-  }],
 }, 
 {
   toObject: {

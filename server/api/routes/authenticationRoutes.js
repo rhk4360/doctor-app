@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app) {
-  var authController = require('../controllers/authenticationController');
+  const authController = require('../controllers/authenticationController');
 
   // authentication Routes
 

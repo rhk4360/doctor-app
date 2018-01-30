@@ -38,7 +38,7 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />        
-        <Route path="/overview" component={PatientOverviewPage} />
+        <Route path="/overview/:id" component={PatientOverviewPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />

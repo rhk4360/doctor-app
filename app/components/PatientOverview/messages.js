@@ -6,16 +6,20 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  mainHeader: {
-    id: 'boilerplate.components.PatientOverview.mainHeader',
-    defaultMessage: 'Patient Overview',
+  nameLabel: {
+    id: 'boilerplate.components.PatientOverview.nameLabel',
+    defaultMessage: 'Name:',
   },
-  addressHeader: {
-    id: 'boilerplate.components.PatientOverview.addressHeader',
-    defaultMessage: 'Patient Details',
+  ageLabel: {
+    id: 'boilerplate.components.PatientOverview.ageLabel',
+    defaultMessage: 'Age:',
   },
-  appointmentHeader: {
-    id: 'boilerplate.components.PatientOverview.appointmentHeader',
-    defaultMessage: 'Appointments',
+  emailLabel: {
+    id: 'boilerplate.components.PatientOverview.emailLabel',
+    defaultMessage: 'Email:',
+  },
+  addressLabel: {
+    id: 'boilerplate.components.PatientOverview.addressLabel',
+    defaultMessage: 'Address',
   },
 });

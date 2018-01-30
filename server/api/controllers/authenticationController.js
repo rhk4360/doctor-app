@@ -15,6 +15,7 @@ exports.signIn = (function(req, res) {
     })
     .populate('address')
     .populate('appointments')
+    .populate('appointments.provider')
     .exec(function(error, user) {     
       if (error) {
         console.log('Error: ' + JSON.stringify(error));

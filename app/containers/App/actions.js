@@ -53,7 +53,7 @@ export function signInSuccess(user) {
  *
  * @return {object}       An action object with a type of SIGN_IN_ERROR passing the error
  */
-export function repoLoadingError(error) {
+export function signInError(error) {
   return {
     type: SIGN_IN_ERROR,
     error,

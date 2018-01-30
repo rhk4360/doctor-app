@@ -34,7 +34,7 @@ export function* signIn() {
     yield put(signInSuccess(user));
     // redirect to next page
     if (user.type === 'Patient') {
-      yield put(push('/overview'));
+      yield put(push(`/overview/${user._id}`));
     } else {
       yield put(push('/listing'));
     }

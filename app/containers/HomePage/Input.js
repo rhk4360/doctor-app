@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 const Input = styled.input`
-  outline: none;
-  border-bottom: 1px dotted #999;
+  color: palevioletred;
+  display: block;
+  font-size: 1em;
+  border: 2px solid palevioletred;
+  border-radius: 3px;
 `;
 
 export default Input;

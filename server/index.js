@@ -15,25 +15,18 @@ const { seed } = require('./seedDatabase');
 const app = express();
 
 
-// If you need a backend, e.g. an API, add your custom backend-specific middleware here
-// app.use('/api', myApi);
-  //app.use(express.bodyParser());
-  //app.use(express.methodOverride());
-  //app.use(app.router);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var routes = require('./api/routes/authenticationRoutes'); //importing route
-routes(app); //register the route
+var authenticationRoutes = require('./api/routes/authenticationRoutes'); //importing route
+authenticationRoutes(app); //register the route
 
-// mongoose instance connection url connection
-mongoose.connect('mongodb://admin:password@localhost/admin');
-//const db = mongoose.mongo.MongoClient('mongodb://'+username+':'+passwor‌​d+'@localhost/dbtoco‌​nnect, function(err, db){});
-// db.createUser({
-//      user: "admin",
-//      pwd: "password",
-//      roles: [ "readWrite", "dbAdmin" ]
-//  });
+var appointmentRoutes = require('./api/routes/appointmentRoutes'); //importing route
+appointmentRoutes(app); //register the route
+
+// mongoose instance connection url connection (this should obviously live in a config file)
+mongoose.connect('mongodb://admin:password@localhost/test');
+
 seed();
 
 // In production we need to pass these values in instead of relying on webpack

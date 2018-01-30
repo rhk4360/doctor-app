@@ -13,10 +13,12 @@ export default class Address extends React.Component { // eslint-disable-line re
     if (patient && patient.address) {
       return (
         <address>
-          <span>{patient.address.line_1}</span>
-          <span>{patient.address.line_2}</span>
-          <span>{patient.address.city}</span>
-          <span>{patient.address.state}</span>
+          <div>
+            <span>{patient.address.line_1} </span>
+            <span>{patient.address.line_2}</span>
+          </div>
+          <span>{patient.address.city}, </span>
+          <span>{patient.address.state} </span>
           <span>{patient.address.postal_code}</span>
         </address>
       );

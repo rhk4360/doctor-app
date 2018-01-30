@@ -7,6 +7,7 @@ import H1 from 'components/H1';
 import H2 from 'components/H2';
 import Address from 'components/Address';
 import { makeSelectCurrentUser } from 'containers/App/selectors';
+import Span from './Span';
 
 class PatientOverview extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -16,17 +17,23 @@ class PatientOverview extends React.Component { // eslint-disable-line react/pre
     if (currentUser) {
       return (
         <div>
-          <H1>
-            <FormattedMessage {...messages.mainHeader} />
-          </H1>
-          <H2>
-            <FormattedMessage {...messages.addressHeader} />
-          </H2>
           <ul>
-            <li>{ currentUser.name.full }</li>
-            <li>{ currentUser.age }</li>
-            <li>{ currentUser.email }</li>
-            <li><Address patient={currentUser} /></li>
+            <li>
+              <strong><FormattedMessage {...messages.nameLabel} /></strong>
+              <Span>{ currentUser.name.full }</Span>
+            </li>
+            <li>
+              <strong><FormattedMessage {...messages.ageLabel} /></strong>
+              <Span>{ currentUser.age }</Span>
+            </li>
+            <li>
+              <strong><FormattedMessage {...messages.emailLabel} /></strong>
+              <Span>{ currentUser.email }</Span>
+            </li>
+            <li>
+              <strong><FormattedMessage {...messages.addressLabel} /></strong>
+              <Address patient={currentUser} />
+            </li>
           </ul>
         </div>
       );
