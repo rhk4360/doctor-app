@@ -1,5 +1,5 @@
 /*
- * HomeReducer
+ * ListingReducer
  *
  * The reducer takes care of our data. Using actions, we can change our
  * application state.
@@ -12,29 +12,32 @@
 import { fromJS } from 'immutable';
 
 import {
-  CHANGE_USERNAME,
-  CHANGE_PASSWORD,
+  GET_PATIENT_LIST,
+  GET_PATIENTS_SUCCESS,
+  GET_PATIENTS_ERROR,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  username: '',
-  password: '',
-  user: {},
+  patientList: [],
 });
 
-function homeReducer(state = initialState, action) {
+function listingReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_USERNAME:
-
+    case GET_PATIENT_LIST:
       return state
-        .set('username', action.name);
-    case CHANGE_PASSWORD:
+        .set('loading', true);
+    case GET_PATIENTS_SUCCESS:
       return state
-        .set('password', action.password);
+        .set('loading', false)
+        .set('patientList', action.list);
+    case GET_PATIENTS_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', action.error);
     default:
       return state;
   }
 }
 
-export default homeReducer;
+export default listingReducer;

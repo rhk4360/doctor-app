@@ -4,7 +4,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const logger = require('./logger');
-const User = require('./api/models/userModel');
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
@@ -18,11 +17,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var authenticationRoutes = require('./api/routes/authenticationRoutes'); //importing route
-authenticationRoutes(app); //register the route
-
-var appointmentRoutes = require('./api/routes/appointmentRoutes'); //importing route
-appointmentRoutes(app); //register the route
+// Import and register routes
+const userRoutes = require('./api/routes/userRoutes');
+userRoutes(app);
+const appointmentRoutes = require('./api/routes/appointmentRoutes');
+appointmentRoutes(app);
 
 // mongoose instance connection url connection (this should obviously live in a config file)
 mongoose.connect('mongodb://admin:password@localhost/test');
@@ -44,7 +43,7 @@ const prettyHost = customHost || 'localhost';
 app.listen(port, host, (err) => {
   if (err) {
     return logger.error(err.message);
-  }  
+  }
 
   // Connect to ngrok in dev mode
   if (ngrok) {

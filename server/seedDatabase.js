@@ -54,6 +54,7 @@ exports.seed = function() {
 	 	city: 'Colorado Springs',
 	 	state: 'Colorado',
 	 	postal_code: '80924',
+	 	phone: '773-202-LUNA',
 	});
 
  	let patient1 = new User({
@@ -68,6 +69,35 @@ exports.seed = function() {
 	 	},	 	
 	 	dob: new Date('12/16/1985'),
 	});
+
+	let patient2 = new User({
+	 	username: 'patient2',
+	 	password: 'test1234',
+	 	passwordConfirmation: 'test1234',			 	
+	 	email: 'test3@testuser.com',
+	 	type: 'Patient',
+	 	name: {
+	 		first: 'Bugs',
+	 		last: 'Bunny',
+	 	},
+	 	dob: new Date('04/11/1980'),
+	}).save();
+
+
+	// for (let i = 2; i < 50; i += 1) {
+	// 	new User({
+	// 	 	username: `patient${i}`,
+	// 	 	password: 'test1234',
+	// 	 	passwordConfirmation: 'test1234',			 	
+	// 	 	email: `test3@testuser${i}.com`,
+	// 	 	type: 'Patient',
+	// 	 	name: {
+	// 	 		first: 'Bugs',
+	// 	 		last: 'Bunny',
+	// 	 	},
+	// 	 	dob: new Date('04/11/1980'),
+	// 	}).save();
+	// }
 
 	jamesBondMd.save(() => {
 		docDomore.save(() => {

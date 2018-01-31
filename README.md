@@ -36,3 +36,9 @@ I used mongoose as an ODM because it seemed simple and intuitive. I wrote a simp
 
 The frontend code lives within the app folder. It's broken out into a components folder where reusable components live.
 A containers folder, where containers or pages live. The pages are associated with routes defined within the containers/App/index.js file. For styles, we are using styled-components which is fairly new to me, but seems good.
+
+Things I want to do:
+1. Persist app state across browser refreshes
+2. Come up with a better seed using import for mongodb
+3. More unit testing
+4. File upload with mongo/GridFS

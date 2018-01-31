@@ -54,8 +54,13 @@ var UserSchema = new Schema({
   },
 });
 
-UserSchema.virtual('name.full').get(function() {  
-  return this.name.first + ' ' + this.name.last;
+UserSchema.virtual('name.full').get(function() {
+  let fullName = `${this.name.first} ${this.name.last}`;
+
+  if (this.name.suffix) {
+    fullName += ` ${this.name.suffix}`;
+  }
+  return fullName;
 });
 
 UserSchema.virtual('age').get(function() {  

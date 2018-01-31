@@ -27,8 +27,11 @@ var AppointmentSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['Booked', 'Requested', 'Canceled', 'Completed'],
+    enum: ['Booked', 'Requested', 'Declined', 'Completed'],
     required: true,
+  },
+  declined_reason: {
+    type: String
   },
 }, 
 {
@@ -42,7 +45,7 @@ var AppointmentSchema = new Schema({
 
 AppointmentSchema.virtual('formatted_datetime').get(function() {  
   if (this.datetime) {
-    return moment(this.datetime).utcOffset(this.timeoffset).format("MMM Do YYYY, h:mm a");
+    return moment(this.datetime).utcOffset(this.timeoffset).format("MM/DD/YYYY, h:mm a");
   }
 });
 

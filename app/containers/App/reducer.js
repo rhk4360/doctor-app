@@ -26,7 +26,6 @@ const initialState = fromJS({
 });
 
 function appReducer(state = initialState, action) {
-  console.log("appReducer " + JSON.stringify(action.user));
   switch (action.type) {
     case SIGN_IN:
       return state

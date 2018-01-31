@@ -6,4 +6,7 @@ module.exports = function(app) {
 
   app.route('/findAppointmentsForPatient')
     .get(appointmentController.findAppointmentsForPatient);
+
+  app.route('/updateAppointment')
+  	.put(appointmentController.updateAppointment);
 };
