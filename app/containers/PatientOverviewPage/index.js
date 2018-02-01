@@ -21,10 +21,11 @@ import PatientOverview from 'components/PatientOverview';
 import Button from 'components/Button';
 import { makeSelectLoading, makeSelectError, makeSelectCurrentUser } from 'containers/App/selectors';
 import messages from './messages';
-import { getPatientOverview, cancelAppointment, declineAppointment } from './actions';
-import { makeSelectPatient, makeSelectAppointments } from './selectors';
+import { getPatientOverview, cancelAppointment, declineAppointment, changeDeclineReason } from './actions';
+import { makeSelectPatient, makeSelectAppointments, makeSelectDeclineReason } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import Input from './Input';
 
 
 export class PatientOverviewPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -44,7 +45,7 @@ export class PatientOverviewPage extends React.Component { // eslint-disable-lin
       // the type of user that is logged in Provider vs. Patient
       let cellButtonRender = (row) => (
         row.original.status === 'Booked' && moment().isBefore(row.original.datetime) ?
-          <Button onClick={this.props.cancelAppointment(row.original)}>
+          <Button onClick={() => { this.props.cancelAppointment(row.original._id)}}>
             Cancel
           </Button>
           : false
@@ -54,14 +55,18 @@ export class PatientOverviewPage extends React.Component { // eslint-disable-lin
         cellButtonRender = (row) => (
           row.original.status === 'Requested' ?
             <div>
-              <Button onClick={this.props.declineAppointment(row.original)}>
-                Decline
-              </Button>
               <label htmlFor="reason">Decline Reason
                 <div>
-                  <input type="text" />
+                  <Input
+                    id="reason"
+                    type="text"
+                    onChange={this.props.onChangeDeclineReason}
+                  />
                 </div>
               </label>
+              <Button onClick={() => { this.props.declineAppointment(row.original._id)}}>
+                Decline
+              </Button>
             </div>
             : false
         );
@@ -112,6 +117,15 @@ export class PatientOverviewPage extends React.Component { // eslint-disable-lin
               },
             ]}
             defaultPageSize={10}
+            SubComponent={(row) => {
+              return (
+                <div>
+                  <span style={{display: row.original.status !== 'Declined' ? 'none' : 'inline'}}>
+                    Reason for declined appointment: {row.original.declined_reason}
+                  </span>
+                </div>
+              )
+            }}
             className="-striped -highlight"
           />
         </div>
@@ -128,7 +142,10 @@ PatientOverviewPage.propTypes = {
   declineAppointment: PropTypes.func,
   patient: PropTypes.object,
   appointments: PropTypes.array,
-  currentUser: PropTypes.object,
+  currentUser: PropTypes.oneOfType([
+    PropTypes.array, 
+    PropTypes.object,
+  ]),
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -142,6 +159,7 @@ export function mapDispatchToProps(dispatch) {
     declineAppointment: (appointmentToUpdate) => {
       dispatch(declineAppointment(appointmentToUpdate));
     },
+    onChangeDeclineReason: (evt) => dispatch(changeDeclineReason(evt.target.value)),
   };
 }
 

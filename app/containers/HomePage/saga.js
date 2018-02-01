@@ -16,8 +16,7 @@ export function* signIn() {
   // Select username and password from store
   const username = yield select(makeSelectUsername());
   const password = yield select(makeSelectPassword());
-  const requestURL = `${config.apiUrl}/login`;
-
+  const requestURL = `${config.apiUrl}login`;
   try {
     // Call our request helper (see 'utils/request')
     const user = yield call(request, requestURL, {

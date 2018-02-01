@@ -6,4 +6,4 @@ export const CANCEL_APPOINTMENT = 'boilerplate/PatientOverview/CANCEL_APPOINTMEN
 export const UPDATE_APPOINTMENT_SUCCESS = 'boilerplate/PatientOverview/UPDATE_APPOINTMENT_SUCCESS';
 export const UPDATE_APPOINTMENT_ERROR = 'boilerplate/PatientOverview/UPDATE_APPOINTMENT_ERROR';
 export const DECLINE_APPOINTMENT = 'boilerplate/PatientOverview/DECLINE_APPOINTMENT';
-
+export const CHANGE_DECLINE_REASON = 'boilerplate/PatientOverview/CHANGE_DECLINE_REASON';

@@ -18,7 +18,6 @@ import 'react-table/react-table.css';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import H2 from 'components/H2';
-import { makeSelectLoading, makeSelectError, makeSelectCurrentUser } from 'containers/App/selectors';
 
 import { getPatientsList } from './actions';
 import { makeSelectPatientList } from './selectors';
@@ -28,9 +27,11 @@ import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
-
 export class PatientListingPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
+  componentWillMount() {
+    this.onRowClick = this.onRowClick.bind(this);
+  }
   componentDidMount() {
     this.props.retrievePatients();
   }
@@ -47,50 +48,56 @@ export class PatientListingPage extends React.Component { // eslint-disable-line
 
   render() {
     const { patientList } = this.props;
-    
-    return (
-      <article>
-        <Helmet>
-          <title>Patient Listing</title>
-          <meta name="description" content="A Medical Portal" />
-        </Helmet>
-        <div>
-          <CenteredSection>
-            <ReactTable
-              data={patientList}
-              filterable
-              getTrProps={this.onRowClick} 
-              columns={[
-                {
-                  Header: 'Patient Info',
-                  columns: [
-                    {
-                      Header: 'First Name',
-                      accessor: 'name.first',
-                    },
-                    {
-                      Header: 'Last Name',
-                      accessor: 'name.last',
-                    },
-                    {
-                      Header: 'Age',
-                      accessor: 'age',
-                    },
-                  ]
-                },
-              ]}
-              defaultPageSize={10}
-              className="-striped -highlight"
-            />
-          </CenteredSection>
-        </div>
-      </article>
-    );
+    if (Array.isArray(patientList)) {
+      return (
+        <article>
+          <Helmet>
+            <title>Patient Listing</title>
+            <meta name="description" content="A Medical Portal" />
+          </Helmet>
+          <div>
+            <CenteredSection>
+              <ReactTable
+                data={patientList}
+                filterable
+                getTrProps={this.onRowClick} 
+                columns={[
+                  {
+                    Header: 'Patient Info',
+                    columns: [
+                      {
+                        Header: 'First Name',
+                        accessor: 'name.first',
+                      },
+                      {
+                        Header: 'Last Name',
+                        accessor: 'name.last',
+                      },
+                      {
+                        Header: 'Age',
+                        accessor: 'age',
+                      },
+                    ]
+                  },
+                ]}
+                defaultPageSize={10}
+                className="-striped -highlight"
+              />
+            </CenteredSection>
+          </div>
+        </article>
+      );
+    }
+    return false;
   }
 }
 
 PatientListingPage.propTypes = {
   getPatientDetail: PropTypes.func,
+  patientList: PropTypes.oneOfType([
+    PropTypes.array, 
+    PropTypes.object,
+  ]),
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -107,9 +114,6 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
-  currentUser: makeSelectCurrentUser(),
   patientList: makeSelectPatientList(),
 });
 

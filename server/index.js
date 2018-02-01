@@ -11,6 +11,8 @@ const isDev = process.env.NODE_ENV !== 'production';
 const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false;
 const resolve = require('path').resolve;
 const { seed } = require('./seedDatabase');
+const { config } = require('./config');
+
 const app = express();
 
 
@@ -24,7 +26,7 @@ const appointmentRoutes = require('./api/routes/appointmentRoutes');
 appointmentRoutes(app);
 
 // mongoose instance connection url connection (this should obviously live in a config file)
-mongoose.connect('mongodb://admin:password@localhost/test');
+mongoose.connect(config.mongoConnection);
 
 seed();
 

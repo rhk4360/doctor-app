@@ -83,21 +83,31 @@ exports.seed = function() {
 	 	dob: new Date('04/11/1980'),
 	}).save();
 
+	new User({
+	 	username: 'patient3',
+	 	password: 'test1234',
+	 	passwordConfirmation: 'test1234',			 	
+	 	email: 'test4@testuser.com',
+	 	type: 'Patient',
+	 	name: {
+	 		first: 'Dexter',
+	 		last: 'Dog',
+	 	},
+	 	dob: new Date('04/22/1981'),
+	}).save();
 
-	// for (let i = 2; i < 50; i += 1) {
-	// 	new User({
-	// 	 	username: `patient${i}`,
-	// 	 	password: 'test1234',
-	// 	 	passwordConfirmation: 'test1234',			 	
-	// 	 	email: `test3@testuser${i}.com`,
-	// 	 	type: 'Patient',
-	// 	 	name: {
-	// 	 		first: 'Bugs',
-	// 	 		last: 'Bunny',
-	// 	 	},
-	// 	 	dob: new Date('04/11/1980'),
-	// 	}).save();
-	// }
+	new User({
+	 	username: 'patient4',
+	 	password: 'test1234',
+	 	passwordConfirmation: 'test1234',			 	
+	 	email: 'test5@testuser.com',
+	 	type: 'Patient',
+	 	name: {
+	 		first: 'Nolan',
+	 		last: 'Steven',
+	 	},
+	 	dob: new Date('02/11/2017'),
+	}).save();
 
 	jamesBondMd.save(() => {
 		docDomore.save(() => {
@@ -106,43 +116,89 @@ exports.seed = function() {
 					patient1.address = address1._id;
 					patient1.save(() => {
 						// populate some appointments
-						let appt1 = new Appointment({
+						new Appointment({
 					 		patient: patient1._id,
 					 		datetime: moment('2017-02-11 07:00'),
 					 		timeoffset: -5,
 					 		purpose: 'Baby delivery',
 					 		provider: docDolittle._id,
 					 		status: 'Completed',
-					 	}).save(() => {
-					 		let appt2 = new Appointment({
-						 		patient: patient1._id,
-						 		datetime: moment('2018-02-11 07:00'),
-						 		timeoffset: -5,
-						 		purpose: 'Baby check up',
-						 		provider: docDomore._id,
-						 		status: 'Requested',
-						 	}).save(() => {
-								let appt3 = new Appointment({
-									patient: patient1._id,
-									datetime: moment('2017-08-11 15:30'),
-									timeoffset: -5,
-									purpose: 'Physical',
-									provider: jamesBondMd._id,
-									status: 'Canceled',
-								}).save(() => {
-							 		let appt4 = new Appointment({
-								 		patient: patient1._id,
-								 		datetime: moment('2018-03-11 08:30'),
-								 		timeoffset: -5,
-								 		purpose: 'Shots',
-								 		provider: jamesBondMd._id,
-								 		status: 'Booked',
-								 	}).save(() => {
-								 		
-								 	});
-							 	});		 		
-						 	});	
-					 	});
+					 	}).save();
+					 	new Appointment({
+					 		patient: patient1._id,
+					 		datetime: moment('2018-02-11 07:00'),
+					 		timeoffset: -5,
+					 		purpose: 'Baby check up',
+					 		provider: docDomore._id,
+					 		status: 'Requested',
+					 	}).save();
+						new Appointment({
+							patient: patient1._id,
+							datetime: moment('2017-08-11 15:30'),
+							timeoffset: -5,
+							purpose: 'Physical',
+							provider: jamesBondMd._id,
+							status: 'Canceled',
+						}).save();
+						new Appointment({
+					 		patient: patient1._id,
+					 		datetime: moment('2018-03-11 08:30'),
+					 		timeoffset: -5,
+					 		purpose: 'Shots',
+					 		provider: jamesBondMd._id,
+					 		status: 'Booked',
+					 	}).save();
+
+					 	new Appointment({
+					 		patient: patient1._id,
+					 		datetime: moment('2018-03-13 10:30'),
+					 		timeoffset: -5,
+					 		purpose: 'Check up',
+					 		provider: jamesBondMd._id,
+					 		status: 'Booked',
+					 	}).save();
+					 	new Appointment({
+					 		patient: patient1._id,
+					 		datetime: moment('2018-02-04 11:30'),
+					 		timeoffset: -5,
+					 		purpose: 'Check up for baby',
+					 		provider: jamesBondMd._id,
+					 		status: 'Requested',
+					 	}).save();
+
+
+					 	new Appointment({
+					 		patient: patient2._id,
+					 		datetime: moment('2018-02-04 12:30'),
+					 		timeoffset: -5,
+					 		purpose: 'Annual physical',
+					 		provider: jamesBondMd._id,
+					 		status: 'Requested',
+					 	}).save();
+					 	new Appointment({
+					 		patient: patient2._id,
+					 		datetime: moment('2018-02-06 11:30'),
+					 		timeoffset: -5,
+					 		purpose: 'MRI',
+					 		provider: jamesBondMd._id,
+					 		status: 'Requested',
+					 	}).save();
+					 	new Appointment({
+					 		patient: patient1._id,
+					 		datetime: moment('2018-02-22 15:30'),
+					 		timeoffset: -5,
+					 		purpose: 'Tetanus shot',
+					 		provider: jamesBondMd._id,
+					 		status: 'Booked',
+					 	}).save();
+					 	new Appointment({
+					 		patient: patient1._id,
+					 		datetime: moment('2018-02-04 11:30'),
+					 		timeoffset: -5,
+					 		purpose: 'X-rays',
+					 		provider: jamesBondMd._id,
+					 		status: 'Booked',
+					 	}).save();
 				 	});
 				});
 			});

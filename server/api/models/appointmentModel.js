@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
-const moment = require('moment');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var moment = require('moment');
+var Schema = mongoose.Schema;
 
-const AppointmentSchema = new Schema({
+var AppointmentSchema = new Schema({
   patient: {
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  provider: {
-    type: Schema.Types.ObjectId,
+  provider: { 
+    type: Schema.Types.ObjectId, 
     ref: 'User',
   },
   datetime: {
@@ -26,28 +26,26 @@ const AppointmentSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['Booked', 'Requested', 'Declined', 'Completed'],
+    enum: ['Booked', 'Requested', 'Declined', 'Canceled', 'Completed'],
     required: true,
   },
   declined_reason: {
-    type: String,
+    type: String
   },
-},
-  {
-    toObject: {
-      virtuals: true,
-    },
-    toJSON: {
-      virtuals: true,
-    },
-  }
-);
+}, 
+{
+  toObject: {
+    virtuals: true,
+  },
+  toJSON: {
+    virtuals: true,
+  },
+});
 
-AppointmentSchema.virtual('formatted_datetime').get(() => {
+AppointmentSchema.virtual('formatted_datetime').get(function() {  
   if (this.datetime) {
-    return moment(this.datetime).utcOffset(this.timeoffset).format('MM/DD/YYYY, h:mm a');
+    return moment(this.datetime).utcOffset(this.timeoffset).format("MM/DD/YYYY, h:mm a");
   }
-  return '';
 });
 
 

@@ -24,19 +24,23 @@ const initialState = fromJS({
 
 function listingReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_PATIENT_LIST:
+    case GET_PATIENT_LIST: {
       return state
         .set('loading', true);
-    case GET_PATIENTS_SUCCESS:
+    }
+    case GET_PATIENTS_SUCCESS: {
       return state
         .set('loading', false)
         .set('patientList', action.list);
-    case GET_PATIENTS_ERROR:
+    }
+    case GET_PATIENTS_ERROR: {
       return state
         .set('loading', false)
         .set('error', action.error);
-    default:
+    }
+    default: {
       return state;
+    }
   }
 }
 

@@ -20,6 +20,8 @@ import H2 from 'components/H2';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
 import Input from './Input';
+import Label from './Label';
+import ErrorLabel from './ErrorLabel';
 import Section from './Section';
 import messages from './messages';
 import { changeUsername, changePassword, signIn } from './actions';
@@ -43,13 +45,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             <H2>
               <FormattedMessage {...messages.signInHeader} />
             </H2>
-          </CenteredSection>
-          <Section>
             <Form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="error">
+              <ErrorLabel htmlFor="error">
                 { error ? error.message : '' }
-              </label>
-              <label htmlFor="username">
+              </ErrorLabel>
+              <Label htmlFor="username">
                 <FormattedMessage {...messages.usernameLabel} />
                 <Input
                   id="username"
@@ -57,8 +57,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
                   placeholder="patient1 or doctor1"
                   onChange={this.props.onChangeUsername}
                 />
-              </label>
-              <label htmlFor="password">
+              </Label>
+              <Label htmlFor="password">
                 <FormattedMessage {...messages.passwordLabel} />
                 <Input
                   id="password"
@@ -66,12 +66,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
                   placeholder="test1234"
                   onChange={this.props.onChangePassword}
                 />
-              </label>
+              </Label>
               <Button type="submit" onClick={this.props.onSubmitForm} primary >
                 <FormattedMessage {...messages.signInButton} />
               </Button>
             </Form>
-          </Section>
+          </CenteredSection>
         </div>
       </article>
     );

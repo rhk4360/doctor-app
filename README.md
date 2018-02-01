@@ -18,6 +18,7 @@ db.createUser(
      roles: [ "readWrite", "dbAdmin" ]
    }
 )
+Alternatively, you're free to configure a custom mongo connection string of your own within the server/config.js file.
 
 1. Clone this repo using `git clone https://github.com/rhk4360/doctor-app.git`
 2. Move to the appropriate directory: `cd doctor-app`.<br />
@@ -28,8 +29,6 @@ db.createUser(
 
 I used react-boilerplate to get up and running quickly. It has webpack, react, redux, eslint, unit testing, and many other dependencies set up out of the box.
 
-Disclaimer: first time using node and mongo, but happy I finally had a good excuse.
-
 The server components live within the server folder. This will launch the app locally on port 3000 and also 
 bring up the contents of the api folder. The api folder contains controllers, models, and routes.
 I used mongoose as an ODM because it seemed simple and intuitive. I wrote a simple class to seed the database just to get going.
@@ -39,6 +38,6 @@ A containers folder, where containers or pages live. The pages are associated wi
 
 Things I want to do:
 1. Persist app state across browser refreshes
-2. Come up with a better seed using import for mongodb
+2. Come up with a better seed using import files for mongodb
 3. More unit testing
 4. File upload with mongo/GridFS

@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'boilerplate.components.PatientOverview.nameLabel',
     defaultMessage: 'Name:',
   },
+  birthdayLabel: {
+    id: 'boilerplate.components.PatientOverview.birthdayLabel',
+    defaultMessage: 'Birthday:',
+  },
   ageLabel: {
     id: 'boilerplate.components.PatientOverview.ageLabel',
     defaultMessage: 'Age:',

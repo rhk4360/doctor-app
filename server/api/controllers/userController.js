@@ -1,5 +1,7 @@
 /* The Authentication controller
 *  signIn - attempts to sign the user in if the username/pw combo is found
+*  getAllPatients - gets all patients in the system (should add pagination)
+*  getUser - get a specific user by id
 */
 
 const User = require('../models/userModel');
@@ -48,7 +50,7 @@ exports.getUser = ((req, res) => {
       Appointment.find({
         patient: user._id,
       })
-      .populate('provider')
+      .populate('provider', 'name')
       .exec((error2, appointments) => {
         if (error2) {
           res.send(error2);

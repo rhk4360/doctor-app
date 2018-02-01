@@ -6,6 +6,7 @@ import {
   UPDATE_APPOINTMENT_SUCCESS,
   UPDATE_APPOINTMENT_ERROR,
   DECLINE_APPOINTMENT,
+  CHANGE_DECLINE_REASON,
 } from './constants';
 
 /**
@@ -53,14 +54,14 @@ export function getPatientOverviewError(error) {
 /**
  * Cancel an appointment
  *
- * @param appointmentToUpdate - appointment to update
+ * @param appointmentId - appointment id to update
  *
  * @return {object}    An action object with a type of CANCEL_APPOINTMENT
  */
-export function cancelAppointment(appointmentToUpdate) {
+export function cancelAppointment(appointmentId) {
   return {
     type: CANCEL_APPOINTMENT,
-    appointmentToUpdate,
+    appointmentId,
   };
 }
 
@@ -95,16 +96,30 @@ export function updateAppointmentError(error) {
 /**
  * Decline an appointment
  *
- * @param id - appointment id
+ * @param appointmentId - appointment id
  * @param declinedReason - reason for declining the appointment
  *
  * @return {object}    An action object with a type of DECLINE_APPOINTMENT
  */
-export function declineAppointment(id, declinedReason) {
+export function declineAppointment(appointmentId, declinedReason) {
   return {
     type: DECLINE_APPOINTMENT,
-    id,
+    appointmentId,
     declinedReason,
+  };
+}
+
+/**
+ * Changes the input field of the form
+ *
+ * @param  {name} name The new text of the input field
+ *
+ * @return {object}    An action object with a type of CHANGE_DECLINE_REASON
+ */
+export function changeDeclineReason(reason) {
+  return {
+    type: CHANGE_DECLINE_REASON,
+    reason,
   };
 }
 

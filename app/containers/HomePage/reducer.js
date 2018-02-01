@@ -26,17 +26,20 @@ const initialState = fromJS({
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_USERNAME:
-
+    case CHANGE_USERNAME: {
       return state
         .set('username', action.name);
-    case CHANGE_PASSWORD:
+    }
+    case CHANGE_PASSWORD: {
       return state
         .set('password', action.password);
-    case SIGN_IN_SUCCESS:
+    }
+    case SIGN_IN_SUCCESS: {
       return state.set('user', action.user);
-    default:
+    }
+    default: {
       return state;
+    }
   }
 }
 
