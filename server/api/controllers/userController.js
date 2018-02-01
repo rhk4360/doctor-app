@@ -1,6 +1,5 @@
 /* The Authentication controller
 *  signIn - attempts to sign the user in if the username/pw combo is found
-*  getAllPatients - gets all patients in the system (should add pagination)
 *  getUser - get a specific user by id
 */
 
@@ -14,19 +13,6 @@ exports.signIn = ((req, res) => {
     password: req.body.password,
   })
   .populate('address')
-  .exec((error, user) => {
-    if (error) {
-      res.send(error);
-    } else {
-      res.send(user);
-    }
-  });
-});
-
-exports.getAllPatients = ((req, res) => {
-  User.find({
-    type: 'Patient',
-  })
   .exec((error, user) => {
     if (error) {
       res.send(error);

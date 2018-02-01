@@ -57,6 +57,15 @@ exports.seed = function() {
 	 	phone: '773-202-LUNA',
 	});
 
+	let address2 = new Address({
+		line_1: '21 Lakeshore View',
+		line_2: 'Apt 121',
+	 	city: 'Chicago',
+	 	state: 'Illinois',
+	 	postal_code: '60611',
+	 	phone: '312-323-2222',
+	});
+
  	let patient1 = new User({
 	 	username: 'patient1',
 	 	password: 'test1234',
@@ -70,7 +79,7 @@ exports.seed = function() {
 	 	dob: new Date('12/16/1985'),
 	});
 
-	let patient2 = new User({
+	const patient2 = new User({
 	 	username: 'patient2',
 	 	password: 'test1234',
 	 	passwordConfirmation: 'test1234',			 	
@@ -81,7 +90,7 @@ exports.seed = function() {
 	 		last: 'Bunny',
 	 	},
 	 	dob: new Date('04/11/1980'),
-	}).save();
+	});
 
 	new User({
 	 	username: 'patient3',
@@ -164,41 +173,45 @@ exports.seed = function() {
 					 		purpose: 'Check up for baby',
 					 		provider: jamesBondMd._id,
 					 		status: 'Requested',
-					 	}).save();
-
-
-					 	new Appointment({
-					 		patient: patient2._id,
-					 		datetime: moment('2018-02-04 12:30'),
-					 		timeoffset: -5,
-					 		purpose: 'Annual physical',
-					 		provider: jamesBondMd._id,
-					 		status: 'Requested',
-					 	}).save();
-					 	new Appointment({
-					 		patient: patient2._id,
-					 		datetime: moment('2018-02-06 11:30'),
-					 		timeoffset: -5,
-					 		purpose: 'MRI',
-					 		provider: jamesBondMd._id,
-					 		status: 'Requested',
-					 	}).save();
-					 	new Appointment({
-					 		patient: patient1._id,
-					 		datetime: moment('2018-02-22 15:30'),
-					 		timeoffset: -5,
-					 		purpose: 'Tetanus shot',
-					 		provider: jamesBondMd._id,
-					 		status: 'Booked',
-					 	}).save();
-					 	new Appointment({
-					 		patient: patient1._id,
-					 		datetime: moment('2018-02-04 11:30'),
-					 		timeoffset: -5,
-					 		purpose: 'X-rays',
-					 		provider: jamesBondMd._id,
-					 		status: 'Booked',
-					 	}).save();
+					 	}).save(() => {
+					 		address2.save(() => {
+						 		patient2.address = address2._id;
+						 		patient2.save(() => {
+						 			new Appointment({
+								 		patient: patient2._id,
+								 		datetime: moment('2018-02-22 12:10'),
+								 		timeoffset: -5,
+								 		purpose: 'Annual physical',
+								 		provider: jamesBondMd._id,
+								 		status: 'Requested',
+								 	}).save();
+								 	new Appointment({
+								 		patient: patient2._id,
+								 		datetime: moment('2018-02-12 11:50'),
+								 		timeoffset: -5,
+								 		purpose: 'MRI',
+								 		provider: jamesBondMd._id,
+								 		status: 'Requested',
+								 	}).save();
+								 	new Appointment({
+								 		patient: patient1._id,
+								 		datetime: moment('2018-02-23 16:30'),
+								 		timeoffset: -5,
+								 		purpose: 'Tetanus shot',
+								 		provider: jamesBondMd._id,
+								 		status: 'Booked',
+								 	}).save();
+								 	new Appointment({
+								 		patient: patient2._id,
+								 		datetime: moment('2018-01-04 10:30'),
+								 		timeoffset: -5,
+								 		purpose: 'X-rays',
+								 		provider: jamesBondMd._id,
+								 		status: 'Completed',
+								 	}).save();
+							 	});
+					 		});
+					 	});
 				 	});
 				});
 			});

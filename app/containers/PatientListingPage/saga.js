@@ -1,16 +1,18 @@
 /**
  * Gets the repositories of the user from Github
  */
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
 import { GET_PATIENT_LIST } from './constants';
 import { getPatientsSuccess, getPatientsError } from './actions';
 import { config } from '../../config/config';
+import { makeSelectCurrentUser } from 'containers/App/selectors';
 /**
  * Github repos request/response handler
  */
 export function* getPatientsList() {
-  const requestURL = `${config.apiUrl}getAllPatients`;
+  const user = yield select(makeSelectCurrentUser());
+  const requestURL = `${config.apiUrl}getProvidersPatients/${user._id}`;
 
   try {
     const list = yield call(request, requestURL, {

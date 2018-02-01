@@ -16,7 +16,7 @@ import 'react-table/react-table.css';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import H1 from 'components/H1';
+import H2 from 'components/H2';
 import PatientOverview from 'components/PatientOverview';
 import Button from 'components/Button';
 import { makeSelectLoading, makeSelectError, makeSelectCurrentUser } from 'containers/App/selectors';
@@ -77,9 +77,9 @@ export class PatientOverviewPage extends React.Component { // eslint-disable-lin
             <title>Patient Overview Page</title>
             <meta name="description" content="Patient overview page" />
           </Helmet>
-          <H1>
+          <H2>
             <FormattedMessage {...messages.header} />
-          </H1>
+          </H2>
           <PatientOverview patient={patient} />
 
           <Button>Create New Appointment</Button>
