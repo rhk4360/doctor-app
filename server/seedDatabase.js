@@ -195,7 +195,7 @@ exports.seed = function() {
 								 	}).save();
 								 	new Appointment({
 								 		patient: patient1._id,
-								 		datetime: moment('2018-02-23 16:30'),
+								 		datetime: moment('2018-01-23 16:30'),
 								 		timeoffset: -5,
 								 		purpose: 'Tetanus shot',
 								 		provider: jamesBondMd._id,
