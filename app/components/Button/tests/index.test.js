@@ -7,23 +7,17 @@ import { mount } from 'enzyme';
 
 import Button from '../index';
 
-const handleRoute = () => {};
-const href = 'http://mxstbr.com';
+const onClick = () => {};
 const children = (<h1>Test</h1>);
 const renderComponent = (props = {}) => mount(
-  <Button href={href} {...props}>
+  <Button onClick={onClick} {...props}>
     {children}
   </Button>
 );
 
 describe('<Button />', () => {
-  it('should render an <a> tag if no route is specified', () => {
-    const renderedComponent = renderComponent({ href });
-    expect(renderedComponent.find('a').length).toEqual(1);
-  });
-
-  it('should render a <button> tag to change route if the handleRoute prop is specified', () => {
-    const renderedComponent = renderComponent({ handleRoute });
+  it('should render a <button> tag', () => {
+    const renderedComponent = renderComponent({ onClick });
     expect(renderedComponent.find('button').length).toEqual(1);
   });
 
@@ -44,15 +38,9 @@ describe('<Button />', () => {
     expect(renderedComponent.find('a').prop('className')).toBeDefined();
   });
 
-  it('should not adopt a type attribute when rendering an <a> tag', () => {
-    const type = 'text/html';
-    const renderedComponent = renderComponent({ href, type });
-    expect(renderedComponent.find('a').prop('type')).toBeUndefined();
-  });
-
   it('should not adopt a type attribute when rendering a button', () => {
     const type = 'submit';
-    const renderedComponent = renderComponent({ handleRoute, type });
+    const renderedComponent = renderComponent({ onClick, type });
     expect(renderedComponent.find('button').prop('type')).toBeUndefined();
   });
 });

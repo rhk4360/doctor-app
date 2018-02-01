@@ -1,5 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`getPatientsData Saga should call the getPatientsError action if the response errors 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[`getPatientsData Saga should call the getPatientsError action if the response errors 2`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "http://localhost:3000/getProvidersPatients/undefined",
+      Object {
+        "headers": Object {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        "method": "GET",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`getPatientsData Saga should dispatch the getPatientsSuccess action if it requests the data successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[`getPatientsData Saga should dispatch the getPatientsSuccess action if it requests the data successfully 2`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "http://localhost:3000/getProvidersPatients/undefined",
+      Object {
+        "headers": Object {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        "method": "GET",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
 exports[`getRepos Saga should call the repoLoadingError action if the response errors 1`] = `
 Object {
   "@@redux-saga/IO": true,

@@ -3,34 +3,13 @@
  */
 
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { IntlProvider } from 'react-intl';
 
 import { HomePage, mapDispatchToProps } from '../index';
-import { changeUsername } from '../actions';
+import { changeUsername, changePassword } from '../actions';
 
 describe('<HomePage />', () => {
-  it('should render the repos list', () => {
-    const renderedComponent = shallow(
-      <HomePage loading error={false} repos={[]} />
-    );
-    expect(renderedComponent.contains(<ReposList loading error={false} repos={[]} />)).toEqual(true);
-  });
-
-  it('should render fetch the repos on mount if a username exists', () => {
-    const submitSpy = jest.fn();
-    mount(
-      <IntlProvider locale="en">
-        <HomePage
-          username="Not Empty"
-          onChangeUsername={() => {}}
-          onSubmitForm={submitSpy}
-        />
-      </IntlProvider>
-    );
-    expect(submitSpy).toHaveBeenCalled();
-  });
-
   it('should not call onSubmitForm if username is an empty string', () => {
     const submitSpy = jest.fn();
     mount(
@@ -69,9 +48,23 @@ describe('<HomePage />', () => {
       it('should dispatch changeUsername when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
-        const username = 'mxstbr';
+        const username = 'admin';
         result.onChangeUsername({ target: { value: username } });
         expect(dispatch).toHaveBeenCalledWith(changeUsername(username));
+      });
+    });
+    describe('onChangePassword', () => {
+      it('should be injected', () => {
+        const dispatch = jest.fn();
+        const result = mapDispatchToProps(dispatch);
+        expect(result.onChangePassword).toBeDefined();
+      });
+      it('should dispatch changePassword when called', () => {
+        const dispatch = jest.fn();
+        const result = mapDispatchToProps(dispatch);
+        const password = 'test1234';
+        result.onChangePassword({ target: { value: password } });
+        expect(dispatch).toHaveBeenCalledWith(changePassword(password));
       });
     });
 
@@ -80,13 +73,6 @@ describe('<HomePage />', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
         expect(result.onSubmitForm).toBeDefined();
-      });
-
-      it('should dispatch loadRepos when called', () => {
-        const dispatch = jest.fn();
-        const result = mapDispatchToProps(dispatch);
-        result.onSubmitForm();
-        expect(dispatch).toHaveBeenCalledWith(loadRepos());
       });
 
       it('should preventDefault if called with event', () => {

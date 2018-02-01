@@ -7,23 +7,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import ReactTable from 'react-table';
 import { push } from 'react-router-redux';
-import PatientOverview from 'components/PatientOverview';
 import 'react-table/react-table.css';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import H2 from 'components/H2';
 
 import { getPatientsList } from './actions';
 import { makeSelectPatientList } from './selectors';
 import CenteredSection from './CenteredSection';
-import Section from './Section';
-import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -43,7 +38,7 @@ export class PatientListingPage extends React.Component { // eslint-disable-line
           this.props.getPatientDetail(rowInfo.original._id);
         }
       },
-    }
+    };
   }
 
   render() {
@@ -60,7 +55,7 @@ export class PatientListingPage extends React.Component { // eslint-disable-line
               <ReactTable
                 data={patientList}
                 filterable
-                getTrProps={this.onRowClick} 
+                getTrProps={this.onRowClick}
                 columns={[
                   {
                     Header: 'Patient Info',
@@ -77,7 +72,7 @@ export class PatientListingPage extends React.Component { // eslint-disable-line
                         Header: 'Age',
                         accessor: 'age',
                       },
-                    ]
+                    ],
                   },
                 ]}
                 defaultPageSize={10}
@@ -95,9 +90,10 @@ export class PatientListingPage extends React.Component { // eslint-disable-line
 PatientListingPage.propTypes = {
   getPatientDetail: PropTypes.func,
   patientList: PropTypes.oneOfType([
-    PropTypes.array, 
+    PropTypes.array,
     PropTypes.object,
   ]),
+  retrievePatients: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -109,7 +105,7 @@ export function mapDispatchToProps(dispatch) {
       if (patientId) {
         dispatch(push(`/overview/${patientId}`));
       }
-    }
+    },
   };
 }
 

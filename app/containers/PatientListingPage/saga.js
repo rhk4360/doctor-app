@@ -3,12 +3,12 @@
  */
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
+import { makeSelectCurrentUser } from 'containers/App/selectors';
 import { GET_PATIENT_LIST } from './constants';
 import { getPatientsSuccess, getPatientsError } from './actions';
 import { config } from '../../config/config';
-import { makeSelectCurrentUser } from 'containers/App/selectors';
 /**
- * Github repos request/response handler
+ * Get providers patients request/response handler
  */
 export function* getPatientsList() {
   const user = yield select(makeSelectCurrentUser());

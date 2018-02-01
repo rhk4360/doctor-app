@@ -22,7 +22,6 @@ import Form from './Form';
 import Input from './Input';
 import Label from './Label';
 import ErrorLabel from './ErrorLabel';
-import Section from './Section';
 import messages from './messages';
 import { changeUsername, changePassword, signIn } from './actions';
 import { makeSelectUsername, makeSelectPassword } from './selectors';

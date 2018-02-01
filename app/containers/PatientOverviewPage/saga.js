@@ -34,8 +34,7 @@ export function* getPatientOverview() {
 
 export function* updateAppointment() {
   const appointmentToUpdate = yield select(makeSelectAppointmentToUpdate());
-  JSON.stringify('Appointmenttoupdate saga ' + JSON.stringify(appointmentToUpdate));
-  const requestURL = 'http://localhost:3000/updateAppointment';
+  const requestURL = `${config.apiUrl}updateAppointment`;
 
   try {
     const updatedAppointment = yield call(request, requestURL, {

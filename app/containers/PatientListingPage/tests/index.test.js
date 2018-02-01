@@ -3,42 +3,18 @@
  */
 
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { IntlProvider } from 'react-intl';
-
-import ReposList from 'components/ReposList';
 import { PatientListingPage, mapDispatchToProps } from '../index';
-import { changeUsername } from '../actions';
-import { getPatientsList } from '../actions';
+import { getPatientsList, retrievePatients } from '../actions';
 
 describe('<PatientListingPage />', () => {
-  it('should render the repos list', () => {
-    const renderedComponent = shallow(
-      <PatientListingPage loading error={false} repos={[]} />
-    );
-    expect(renderedComponent.contains(<ReposList loading error={false} repos={[]} />)).toEqual(true);
-  });
-
-  it('should render fetch the repos on mount if a username exists', () => {
-    const submitSpy = jest.fn();
-    mount(
-      <IntlProvider locale="en">
-        <PatientListingPage
-          username="Not Empty"
-          onChangeUsername={() => {}}
-          onSubmitForm={submitSpy}
-        />
-      </IntlProvider>
-    );
-    expect(submitSpy).toHaveBeenCalled();
-  });
-
   it('should not call onSubmitForm if username is an empty string', () => {
     const submitSpy = jest.fn();
     mount(
       <IntlProvider locale="en">
         <PatientListingPage
-          onChangeUsername={() => {}}
+          retrievePatients={() => {}}
           onSubmitForm={submitSpy}
         />
       </IntlProvider>
@@ -51,8 +27,7 @@ describe('<PatientListingPage />', () => {
     mount(
       <IntlProvider locale="en">
         <PatientListingPage
-          username=""
-          onChangeUsername={() => {}}
+          retrievePatients={() => {}}
           onSubmitForm={submitSpy}
         />
       </IntlProvider>
@@ -61,19 +36,18 @@ describe('<PatientListingPage />', () => {
   });
 
   describe('mapDispatchToProps', () => {
-    describe('onChangeUsername', () => {
+    describe('retrievePatients', () => {
       it('should be injected', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
-        expect(result.onChangeUsername).toBeDefined();
+        expect(result.retrievePatients).toBeDefined();
       });
 
-      it('should dispatch changeUsername when called', () => {
+      it('should dispatch retrievePatients when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
-        const username = 'mxstbr';
-        result.onChangeUsername({ target: { value: username } });
-        expect(dispatch).toHaveBeenCalledWith(changeUsername(username));
+        result.retrievePatients();
+        expect(dispatch).toHaveBeenCalledWith(retrievePatients());
       });
     });
 

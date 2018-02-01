@@ -7,23 +7,21 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { GET_PATIENT_LIST } from '../constants';
 import { getPatientsSuccess, getPatientsError } from '../actions';
 
-import signInData, { getRepos } from '../saga';
-
-const username = 'mxstbr';
+import getPatientsData, { getPatientsList } from '../saga';
 
 /* eslint-disable redux-saga/yield-effects */
 describe('getPatientsData Saga', () => {
-  let getReposGenerator;
-
+  let getPatientsGenerator;
+  const username = 'admin';
   // We have to test twice, once for a successful load and once for an unsuccessful one
   // so we do all the stuff that happens beforehand automatically in the beforeEach
   beforeEach(() => {
-    getReposGenerator = getRepos();
+    getPatientsGenerator = getPatientsList();
 
-    const selectDescriptor = getReposGenerator.next().value;
+    const selectDescriptor = getPatientsGenerator.next().value;
     expect(selectDescriptor).toMatchSnapshot();
 
-    const callDescriptor = getReposGenerator.next(username).value;
+    const callDescriptor = getPatientsGenerator.next(username).value;
     expect(callDescriptor).toMatchSnapshot();
   });
 
@@ -33,21 +31,20 @@ describe('getPatientsData Saga', () => {
     }, {
       name: 'Good Bye',
     }];
-    const putDescriptor = getReposGenerator.next(response).value;
+    const putDescriptor = getPatientsGenerator.next(response).value;
     expect(putDescriptor).toEqual(put(getPatientsSuccess(response, username)));
   });
 
-  it('should call the repoLoadingError action if the response errors', () => {
+  it('should call the getPatientsError action if the response errors', () => {
     const response = new Error('Some error');
-    const putDescriptor = getReposGenerator.throw(response).value;
-    expect(putDescriptor).toEqual(put(repoLoadingError(response)));
+    const putDescriptor = getPatientsGenerator.throw(response).value;
+    expect(putDescriptor).toEqual(put(getPatientsError(response)));
   });
 });
 
-describe('signInDataSaga Saga', () => {
-
+describe('getPatientsDataSaga Saga', () => {
   it('should start task to watch for GET_PATIENT_LIST action', () => {
-    const takeLatestDescriptor = githubDataSaga.next().value;
-    expect(takeLatestDescriptor).toEqual(takeLatest(LOAD_REPOS, getRepos));
+    const takeLatestDescriptor = getPatientsData.next().value;
+    expect(takeLatestDescriptor).toEqual(takeLatest(GET_PATIENT_LIST, getPatientsData));
   });
 });
