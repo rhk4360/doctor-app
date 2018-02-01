@@ -23,7 +23,7 @@ Alternatively, you're free to configure a custom mongo connection string of your
 1. Clone this repo using `git clone https://github.com/rhk4360/doctor-app.git`
 2. Move to the appropriate directory: `cd doctor-app`.<br />
 3. Run `npm run setup` in order to install dependencies and clean the git repo.<br />
-   *We auto-detect `yarn` for installing packages by default, if you wish to force `npm` usage do: `USE_YARN=false npm run setup`*<br />
+   *There will be mongodb related errors, but they can be ignored (for now)*<br />
    *At this point you can run `npm start` to see the example app at `http://localhost:3000`.*
 4. Run `npm run clean` to delete the example app.
 
