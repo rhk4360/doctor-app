@@ -21,6 +21,7 @@ import { makeSelectPatientList } from './selectors';
 import CenteredSection from './CenteredSection';
 import reducer from './reducer';
 import saga from './saga';
+import './override.css';
 
 export class PatientListingPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -76,7 +77,7 @@ export class PatientListingPage extends React.Component { // eslint-disable-line
                   },
                 ]}
                 defaultPageSize={10}
-                className="-striped -highlight"
+                className="-striped -highlight listing"
               />
             </CenteredSection>
           </div>
