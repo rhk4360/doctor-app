@@ -38,7 +38,7 @@ export default function App() {
       </Helmet>
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />        
+        <Route exact path="/" component={HomePage} />
         <Route path="/overview/:id" component={PatientOverviewPage} />
         <Route path="/listing" component={PatientListingPage} />
         <Route path="" component={NotFoundPage} />

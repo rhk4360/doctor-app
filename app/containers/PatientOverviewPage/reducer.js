@@ -1,5 +1,5 @@
 /*
- * ListingReducer
+ * PatientOverviewReducer
  *
  * The reducer takes care of our data. Using actions, we can change our
  * application state.
@@ -19,8 +19,6 @@ import {
   UPDATE_APPOINTMENT_SUCCESS,
   UPDATE_APPOINTMENT_ERROR,
   DECLINE_APPOINTMENT,
-  DECLINE_APPOINTMENT_SUCCESS,
-  DECLINE_APPOINTMENT_ERROR,
 } from './constants';
 
 // The initial state of the App
@@ -34,37 +32,39 @@ const initialState = fromJS({
 
 function overviewReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_PATIENT_OVERVIEW:
+    case GET_PATIENT_OVERVIEW: {
       return state
         .set('loading', true)
         .set('patientId', action.id);
-    case GET_PATIENT_OVERVIEW_SUCCESS:
+    }
+    case GET_PATIENT_OVERVIEW_SUCCESS: {
       return state
         .set('loading', false)
         .set('patient', action.overview.user)
         .set('appointments', action.overview.appointments);
-    case GET_PATIENT_OVERVIEW_ERROR:
+    }
+    case GET_PATIENT_OVERVIEW_ERROR: {
       return state
         .set('loading', false)
         .set('error', action.error);
-    case CANCEL_APPOINTMENT:
+    }
+    case CANCEL_APPOINTMENT: {
       if (action.appointmentToUpdate) {
-        console.log('cancel appt');
-        let appointmentToUpdate = {...action.appointmentToUpdate,
+        const appointmentToUpdate = { ...action.appointmentToUpdate,
           status: 'Canceled',
         };
         return state
           .set('loading', true)
           .set('appointmentToUpdate', appointmentToUpdate);
-      } else {
-        return false;
       }
-    case UPDATE_APPOINTMENT_SUCCESS:
-      const updatedAppointments = state.appointments.map(item => {
-        if(item._id === state.cancelId) {
-          return { ...item, ...action.updatedAppointment }
+      return false;
+    }
+    case UPDATE_APPOINTMENT_SUCCESS: {
+      const updatedAppointments = state.appointments.map((item) => {
+        if (item._id === state.appointmentToUpdate._id) {
+          return { ...item, ...action.updatedAppointment };
         }
-        return item
+        return item;
       });
 
       return state
@@ -72,12 +72,27 @@ function overviewReducer(state = initialState, action) {
         .set('appointmentToUpdate', null)
         .set('declineReason', null)
         .set('appointments', updatedAppointments);
-    case UPDATE_APPOINTMENT_ERROR:
+    }
+    case UPDATE_APPOINTMENT_ERROR: {
       return state
         .set('loading', false)
         .set('error', action.error);
-    default:
+    }
+    case DECLINE_APPOINTMENT: {
+      if (action.appointmentToUpdate) {
+        const appointmentToUpdate = { ...action.appointmentToUpdate,
+          status: 'Declined',
+          declined_reason: action.declinedReason,
+        };
+        return state
+          .set('loading', true)
+          .set('appointmentToUpdate', appointmentToUpdate);
+      }
+      return false;
+    }
+    default: {
       return state;
+    }
   }
 }
 

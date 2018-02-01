@@ -42,7 +42,7 @@ export function signIn() {
 export function signInSuccess(user) {
   return {
     type: SIGN_IN_SUCCESS,
-    user,    
+    user,
   };
 }
 

@@ -4,15 +4,15 @@
 
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { LOAD_REPOS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import { GET_PATIENT_LIST } from '../constants';
+import { getPatientsSuccess, getPatientsError } from '../actions';
 
 import signInData, { getRepos } from '../saga';
 
 const username = 'mxstbr';
 
 /* eslint-disable redux-saga/yield-effects */
-describe('getRepos Saga', () => {
+describe('getPatientsData Saga', () => {
   let getReposGenerator;
 
   // We have to test twice, once for a successful load and once for an unsuccessful one
@@ -27,14 +27,14 @@ describe('getRepos Saga', () => {
     expect(callDescriptor).toMatchSnapshot();
   });
 
-  it('should dispatch the reposLoaded action if it requests the data successfully', () => {
+  it('should dispatch the getPatientsSuccess action if it requests the data successfully', () => {
     const response = [{
-      name: 'First repo',
+      name: 'Hello',
     }, {
-      name: 'Second repo',
+      name: 'Good Bye',
     }];
     const putDescriptor = getReposGenerator.next(response).value;
-    expect(putDescriptor).toEqual(put(reposLoaded(response, username)));
+    expect(putDescriptor).toEqual(put(getPatientsSuccess(response, username)));
   });
 
   it('should call the repoLoadingError action if the response errors', () => {
@@ -45,9 +45,8 @@ describe('getRepos Saga', () => {
 });
 
 describe('signInDataSaga Saga', () => {
-  const signInDataSaga = signInData();
 
-  it('should start task to watch for SIGN_IN action', () => {
+  it('should start task to watch for GET_PATIENT_LIST action', () => {
     const takeLatestDescriptor = githubDataSaga.next().value;
     expect(takeLatestDescriptor).toEqual(takeLatest(LOAD_REPOS, getRepos));
   });

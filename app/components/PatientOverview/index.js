@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 import Address from 'components/Address';
+import messages from './messages';
 import Span from './Span';
 
 export default class PatientOverview extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { patient } =  this.props;
+    const { patient } = this.props;
     if (patient) {
       return (
         <div>
@@ -32,9 +32,8 @@ export default class PatientOverview extends React.Component { // eslint-disable
           </ul>
         </div>
       );
-    } else {
-      return false;
     }
+    return false;
   }
 }
 

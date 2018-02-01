@@ -1,20 +1,16 @@
 /**
  * Gets the repositories of the user from Github
  */
-import { push } from 'react-router-redux';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import request from 'utils/request';
 import { GET_PATIENT_LIST } from './constants';
 import { getPatientsSuccess, getPatientsError } from './actions';
-
-import request from 'utils/request';
-import { makeSelectUsername, makeSelectPassword } from 'containers/App/selectors';
-
+import { config } from '../../config/config';
 /**
  * Github repos request/response handler
  */
 export function* getPatientsList() {
-  console.log('fetchPatients');
-  const requestURL = 'http://localhost:3000/getAllPatients';
+  const requestURL = `${config.apiUrl}getAllPatients`;
 
   try {
     const list = yield call(request, requestURL, {

@@ -1,7 +1,6 @@
-'use strict';
-module.exports = function(app) {
-  const userController = require('../controllers/userController');
+const userController = require('../controllers/userController');
 
+module.exports = (app) => {
   // authentication Routes
 
   app.route('/login')

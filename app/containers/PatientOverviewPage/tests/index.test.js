@@ -4,12 +4,12 @@ import { FormattedMessage } from 'react-intl';
 
 import H1 from 'components/H1';
 import messages from '../messages';
-import FeaturePage from '../index';
+import PatientOverviewPage from '../index';
 
-describe('<FeaturePage />', () => {
+describe('<PatientOverviewPage />', () => {
   it('should render its heading', () => {
     const renderedComponent = shallow(
-      <FeaturePage />
+      <PatientOverviewPage />
     );
     expect(renderedComponent.contains(
       <H1>
@@ -20,7 +20,7 @@ describe('<FeaturePage />', () => {
 
   it('should never re-render the component', () => {
     const renderedComponent = shallow(
-      <FeaturePage />
+      <PatientOverviewPage />
     );
     const inst = renderedComponent.instance();
     expect(inst.shouldComponentUpdate()).toBe(false);

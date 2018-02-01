@@ -8,7 +8,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
   render() {
     return (
       <div>
-        <H1>Medi-Portal</H1>
+        <H1><FormattedMessage {...messages.headerText} /></H1>
       </div>
     );
   }

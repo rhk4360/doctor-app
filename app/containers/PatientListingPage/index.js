@@ -13,38 +13,32 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import ReactTable from 'react-table';
 import { push } from 'react-router-redux';
-
+import PatientOverview from 'components/PatientOverview';
+import 'react-table/react-table.css';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import H2 from 'components/H2';
 import { makeSelectLoading, makeSelectError, makeSelectCurrentUser } from 'containers/App/selectors';
+
 import { getPatientsList } from './actions';
 import { makeSelectPatientList } from './selectors';
-import Button from 'components/Button';
-import H2 from 'components/H2';
 import CenteredSection from './CenteredSection';
 import Section from './Section';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import PatientOverview from 'components/PatientOverview';
-import 'react-table/react-table.css';
-import matchSorter from 'match-sorter'
+
 
 export class PatientListingPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
     this.props.retrievePatients();
-
-    this.onRowClick = this.onRowClick.bind(this);
-    const { currentUser } = this.props;
-    console.log('PatientListingPage current user: ' + JSON.stringify(currentUser));
   }
 
-  onRowClick(state, rowInfo, column, instance) {
+  onRowClick(state, rowInfo) {
     return {
-      onClick: (e) => {
+      onClick: () => {
         if (rowInfo && rowInfo.original) {
-          console.log('It was in this row:', rowInfo.original._id);
           this.props.getPatientDetail(rowInfo.original._id);
         }
       },
@@ -68,19 +62,19 @@ export class PatientListingPage extends React.Component { // eslint-disable-line
               getTrProps={this.onRowClick} 
               columns={[
                 {
-                  Header: "Patient Info",
+                  Header: 'Patient Info',
                   columns: [
                     {
-                      Header: "First Name",
-                      accessor: "name.first",
+                      Header: 'First Name',
+                      accessor: 'name.first',
                     },
                     {
-                      Header: "Last Name",
-                      accessor: "name.last",
+                      Header: 'Last Name',
+                      accessor: 'name.last',
                     },
                     {
-                      Header: "Age",
-                      accessor: "age",
+                      Header: 'Age',
+                      accessor: 'age',
                     },
                   ]
                 },
@@ -89,9 +83,6 @@ export class PatientListingPage extends React.Component { // eslint-disable-line
               className="-striped -highlight"
             />
           </CenteredSection>
-          <Section>
-               
-          </Section>
         </div>
       </article>
     );
@@ -99,11 +90,7 @@ export class PatientListingPage extends React.Component { // eslint-disable-line
 }
 
 PatientListingPage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
+  getPatientDetail: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {

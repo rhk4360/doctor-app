@@ -1,7 +1,6 @@
-'use strict';
-module.exports = function(app) {
-  const appointmentController = require('../controllers/appointmentController');
+const appointmentController = require('../controllers/appointmentController');
 
+module.exports = (app) => {
   // appointment Routes
 
   app.route('/findAppointmentsForPatient')

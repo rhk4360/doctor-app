@@ -22,7 +22,6 @@ import Form from './Form';
 import Input from './Input';
 import Section from './Section';
 import messages from './messages';
-import { loadRepos } from '../App/actions';
 import { changeUsername, changePassword, signIn } from './actions';
 import { makeSelectUsername, makeSelectPassword } from './selectors';
 import reducer from './reducer';
@@ -31,12 +30,7 @@ import saga from './saga';
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { loading, error, repos } = this.props;
-    const reposListProps = {
-      loading,
-      error,
-      repos,
-    };
+    const { error } = this.props;
 
     return (
       <article>
@@ -52,28 +46,31 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           </CenteredSection>
           <Section>
             <Form onSubmit={this.props.onSubmitForm}>
+              <label htmlFor="error">
+                { error ? error.message : '' }
+              </label>
               <label htmlFor="username">
-                <FormattedMessage {...messages.usernameLabel} />                
+                <FormattedMessage {...messages.usernameLabel} />
                 <Input
                   id="username"
                   type="text"
-                  placeholder="patient1 or doctor1"                  
+                  placeholder="patient1 or doctor1"
                   onChange={this.props.onChangeUsername}
                 />
               </label>
               <label htmlFor="password">
-                <FormattedMessage {...messages.passwordLabel} />                
+                <FormattedMessage {...messages.passwordLabel} />
                 <Input
                   id="password"
-                  type="password"                 
-                  placeholder="test1234"                  
+                  type="password"
+                  placeholder="test1234"
                   onChange={this.props.onChangePassword}
                 />
               </label>
               <Button type="submit" onClick={this.props.onSubmitForm} primary >
                 <FormattedMessage {...messages.signInButton} />
               </Button>
-            </Form>            
+            </Form>
           </Section>
         </div>
       </article>
@@ -82,17 +79,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 }
 
 HomePage.propTypes = {
-  loading: PropTypes.bool,
   error: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
   ]),
-  repos: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.bool,
-  ]),
   onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
   onChangeUsername: PropTypes.func,
   onChangePassword: PropTypes.func,
 };

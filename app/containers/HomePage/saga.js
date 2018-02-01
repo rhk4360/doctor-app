@@ -3,10 +3,10 @@
  */
 import { push } from 'react-router-redux';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { SIGN_IN } from './constants';
 import { signInSuccess, signInError } from 'containers/App/actions';
-
 import request from 'utils/request';
+import { SIGN_IN } from './constants';
+import { config } from '../../config/config';
 import { makeSelectUsername, makeSelectPassword } from './selectors';
 
 /**
@@ -16,7 +16,7 @@ export function* signIn() {
   // Select username and password from store
   const username = yield select(makeSelectUsername());
   const password = yield select(makeSelectPassword());
-  const requestURL = 'http://localhost:3000/login';
+  const requestURL = `${config.apiUrl}/login`;
 
   try {
     // Call our request helper (see 'utils/request')
@@ -27,8 +27,8 @@ export function* signIn() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: username,
-        password: password,
+        username,
+        password,
       }),
     });
     yield put(signInSuccess(user));

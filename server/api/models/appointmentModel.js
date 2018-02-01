@@ -1,15 +1,14 @@
-'use strict';
-var mongoose = require('mongoose');
-var moment = require('moment');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const moment = require('moment');
+const Schema = mongoose.Schema;
 
-var AppointmentSchema = new Schema({
+const AppointmentSchema = new Schema({
   patient: {
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  provider: { 
-    type: Schema.Types.ObjectId, 
+  provider: {
+    type: Schema.Types.ObjectId,
     ref: 'User',
   },
   datetime: {
@@ -31,22 +30,24 @@ var AppointmentSchema = new Schema({
     required: true,
   },
   declined_reason: {
-    type: String
+    type: String,
   },
-}, 
-{
-  toObject: {
-    virtuals: true,
-  },
-  toJSON: {
-    virtuals: true,
-  },
-});
-
-AppointmentSchema.virtual('formatted_datetime').get(function() {  
-  if (this.datetime) {
-    return moment(this.datetime).utcOffset(this.timeoffset).format("MM/DD/YYYY, h:mm a");
+},
+  {
+    toObject: {
+      virtuals: true,
+    },
+    toJSON: {
+      virtuals: true,
+    },
   }
+);
+
+AppointmentSchema.virtual('formatted_datetime').get(() => {
+  if (this.datetime) {
+    return moment(this.datetime).utcOffset(this.timeoffset).format('MM/DD/YYYY, h:mm a');
+  }
+  return '';
 });
 
 

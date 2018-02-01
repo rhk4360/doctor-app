@@ -7,14 +7,14 @@ import { shallow, mount } from 'enzyme';
 import { IntlProvider } from 'react-intl';
 
 import ReposList from 'components/ReposList';
-import { HomePage, mapDispatchToProps } from '../index';
+import { PatientListingPage, mapDispatchToProps } from '../index';
 import { changeUsername } from '../actions';
-import { loadRepos } from '../../App/actions';
+import { getPatientsList } from '../actions';
 
-describe('<HomePage />', () => {
+describe('<PatientListingPage />', () => {
   it('should render the repos list', () => {
     const renderedComponent = shallow(
-      <HomePage loading error={false} repos={[]} />
+      <PatientListingPage loading error={false} repos={[]} />
     );
     expect(renderedComponent.contains(<ReposList loading error={false} repos={[]} />)).toEqual(true);
   });
@@ -23,7 +23,7 @@ describe('<HomePage />', () => {
     const submitSpy = jest.fn();
     mount(
       <IntlProvider locale="en">
-        <HomePage
+        <PatientListingPage
           username="Not Empty"
           onChangeUsername={() => {}}
           onSubmitForm={submitSpy}
@@ -37,7 +37,7 @@ describe('<HomePage />', () => {
     const submitSpy = jest.fn();
     mount(
       <IntlProvider locale="en">
-        <HomePage
+        <PatientListingPage
           onChangeUsername={() => {}}
           onSubmitForm={submitSpy}
         />
@@ -50,7 +50,7 @@ describe('<HomePage />', () => {
     const submitSpy = jest.fn();
     mount(
       <IntlProvider locale="en">
-        <HomePage
+        <PatientListingPage
           username=""
           onChangeUsername={() => {}}
           onSubmitForm={submitSpy}
@@ -84,11 +84,11 @@ describe('<HomePage />', () => {
         expect(result.onSubmitForm).toBeDefined();
       });
 
-      it('should dispatch loadRepos when called', () => {
+      it('should dispatch getPatientsList when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
-        result.onSubmitForm();
-        expect(dispatch).toHaveBeenCalledWith(loadRepos());
+        result.retrievePatients();
+        expect(dispatch).toHaveBeenCalledWith(getPatientsList());
       });
 
       it('should preventDefault if called with event', () => {

@@ -1,23 +1,22 @@
 /**
  * Gets the repositories of the user from Github
  */
-import { push } from 'react-router-redux';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import request from 'utils/request';
 import { GET_PATIENT_OVERVIEW, CANCEL_APPOINTMENT, DECLINE_APPOINTMENT } from './constants';
-import { getPatientOverviewSuccess, 
-         getPatientOverviewError, 
+import { getPatientOverviewSuccess,
+         getPatientOverviewError,
          updateAppointmentSuccess,
          updateAppointmentError } from './actions';
-
-import request from 'utils/request';
 import { makeSelectPatientId, makeSelectAppointmentToUpdate } from './selectors';
+import { config } from '../../config/config';
 
 /**
- * Github repos request/response handler
+ * Patient Overview request/response handler
  */
 export function* getPatientOverview() {
   const patientId = yield select(makeSelectPatientId());
-  const requestURL = `http://localhost:3000/user/${patientId}`;
+  const requestURL = `${config.apiUrl}user/${patientId}`;
 
   try {
     const overview = yield call(request, requestURL, {
